@@ -312,11 +312,11 @@ app.layout = html.Div([
     [Output('spread-deficit-chart', 'figure'),Output('debt-deficit-chart', 'figure')],
     Input('fiscal-yr-filter', 'value'))
 def update_output(fiscal_yr):
+    spread_deficit_fig = spread_deficit_graph(mts_mth_df, interest_spread_df)
+    debt_deficit_fig = debt_deficit_graph(mts_mth_df, debt_ttl_df)  
     if fiscal_yr == fiscal_yr_val[0]:
-        spread_deficit_fig = spread_deficit_graph(mts_mth_df, interest_spread_df)
-        debt_deficit_fig = debt_deficit_graph(mts_mth_df, debt_ttl_df)
+        pass
     else:
-        spread_deficit_fig = spread_deficit_graph(mts_mth_df, interest_spread_df)
         fiscal_yr_date = mts_mth_df[mts_mth_df['record_fiscal_year'] == fiscal_yr].record_date.tolist()
         spread_deficit_fig.add_vrect(
             x0=fiscal_yr_date[-1],
@@ -325,7 +325,6 @@ def update_output(fiscal_yr):
             layer="below", line_width=0,
         )
 
-        debt_deficit_fig = debt_deficit_graph(mts_mth_df, debt_ttl_df)
         debt_deficit_fig.add_trace(go.Scatter(
             x=mts_mth_df[mts_mth_df['record_fiscal_year'] == fiscal_yr].current_month_dfct_sur_amt,
             y=debt_ttl_df[debt_ttl_df['record_fiscal_year'] == fiscal_yr].total_mil_amt,
