@@ -215,6 +215,7 @@ deficit_fig.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)','paper_bgcolor':'r
 
 
 app = dash.Dash(external_stylesheets=[dbc.themes.FLATLY])
+server = app.server
 
 
 # In[519]:
